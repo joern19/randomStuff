@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>lalalalalalalala</title>
+<script type="text/javascript">
+	var katze = {
+		"beine" : 3,
+		"name" : "Bert",
+		"farbe" : "grün",
+		"schnurrbart" : "orange"
+	};
+	var katze2 = {
+		"beine" : 5,
+		"name" : "Ernie",
+		"farbe" : "rot"
+	};
+	katze["schnurrbart"] = "gelb";
+	var x = katze.schnurrbart;
+	katze["schnurrbart"] = "blau";
+	console.log(x);
+
+	/*	alert(katze["beine"]);
+	 alert(katze.name);
+	 alert(Object.keys(katze));
+	 var katzen = [ katze, katze2 ];
+	 alert(katzen[0]["farbe"]);
+	 alert(katzen[1].farbe);*/
+	var meinVerruecktesObjekt = {
+		"name" : "Ein lächerliches Objekt",
+		"irgendein Array" : [ 7, 9, {
+			zweck : "Verwirrung",
+			zahl : 123
+		}, 3.3 ],
+		"zufaelliges Tier" : "Bananenhai"
+	};
+	console.log(meinVerruecktesObjekt["irgendein Array"][2].zahl);
+	var scores = {
+		"Joern" : 0,
+		"Leo" : 0,
+		"Philipp" : 0
+	};
+	scores.Leo = scores.Leo + 1;
+	scores.Leo += 1;
+	scores.Leo++;
+	var Alter = 6;
+	Alter = Alter + 4;
+	console.log(Alter);
+</script>
+</head>
+<body>
+	<p>hallo</p>
+	<p>hallo</p>
+	<p>
+		<a href="http://home.keepout.de:8082" title="z6oihgxtjklutjg">Comics</a>
+		sind toll.
+	</p>
+	<br>
+	<p>
+		Viren
+		<a href="file:///C:/work/workspace/joernsStaticWebProject/WebContent/html.html" title="Virendeinstallierer">DEINSTALLIEREN</a>
+	</p>
+</body>
+</html>

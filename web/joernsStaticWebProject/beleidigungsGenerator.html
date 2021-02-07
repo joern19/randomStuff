@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	getRandomElement=function(elementArray) {
+		var random=Math.random();
+		var randomToMaxIndex=random*elementArray.length;
+		var rounded=Math.floor(randomToMaxIndex);
+		return elementArray[rounded];
+	}
+	var koerperTeile = [ "Gesicht", "Mund", "Haar" ];
+	var adjektive = [ "stinkige", "langweilige", "dumme" ];
+	var woerter = [ "Laus", "Kröte", "Ziege", "Pute", "Ratte" ];
+	var koerperTeil=getRandomElement(koerperTeile);
+	var adjektiv=adjektive[Math.floor(Math.random()*adjektive.length)];
+	var wort=woerter[Math.floor(Math.random()*woerter.length)];
+	var beleidigung=["Dein",koerperTeil,"ist","wie","eine",adjektiv,wort,"!"];
+	alert(beleidigung.join(" "));
+</script>
+</head>
+<body>
+
+</body>
+</html>
