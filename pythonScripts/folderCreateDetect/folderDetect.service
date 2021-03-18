@@ -1,0 +1,13 @@
+[Unit]
+Description=email folder watcher
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/lib/folderDetect/folderDetect.py
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+
+# Specify user to run the service
+#User=python_demo_service
+
+[Install]
+WantedBy=default.target
