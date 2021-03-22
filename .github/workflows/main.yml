@@ -21,7 +21,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Zip folder
-        run: zip -r fileConvertDetect.zip ./pythonScripts -i folderCreateDetect/
+        run: cd ./pythonScripts && zip -r fileConvertDetect.zip folderCreateDetect/
 
       - uses: actions/upload-artifact@v2
         with:
