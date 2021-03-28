@@ -1,0 +1,26 @@
+theme:
+  active: "255, 101, 47" # current playing song in list
+  banner: "255, 101, 47" # the "spotify-tui" banner on launch
+  hovered: "20, 167, 108" # hovered pane border
+  playbar_background: "39, 39, 39" # background of progress bar
+  playbar_progress: "255, 101, 47" # filled-in part of the progress bar
+  playbar_progress_text: "116, 116, 116" # song length and time played/left indicator in the progress bar
+  playbar_text: White # artist name in player pane
+  selected: "255, 101, 47" # a) selected pane border, b) hovered item in list, & c) track title in player
+  text: "255, 255, 255" # text in panes
+  header: White # header text in panes (e.g. 'Title', 'Artist', etc.)
+
+behavior:
+  seek_milliseconds: 2500
+  volume_increment: 5
+  # The lower the number the higher the "frames per second". You can decrease this number so that the audio visualisation is smoother but this can be expensive!
+  tick_rate_milliseconds: 250
+  # Controls whether to show a loading indicator in the top right of the UI whenever communicating with Spotify API
+  show_loading_indicator: false
+  # Disables the responsive layout that makes the search bar smaller on bigger
+  # screens and enforces a wide search bar
+  enforce_wide_search_bar: false
+  # Determines the text icon to display next to "liked" Spotify items, such as
+  # liked songs and albums, or followed artists. Can be any length string.
+  # These icons require a patched nerd font.
+  liked_icon: ♥
