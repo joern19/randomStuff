@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Viren</title>
+<script>
+	hintergrund = function() {
+		if (document.getElementById("test").style.backgroundColor == "white") {
+			document.getElementById("test").style.backgroundColor = "red";
+			document.getElementById("schreiben").style.backgroundColor = "red";
+		} else {
+			document.getElementById("test").style.backgroundColor = "white";
+			document.getElementById("schreiben").style.backgroundColor = "white";
+		}
+	}
+	prozent = 0;
+	schreiben = function() {
+		document.getElementById("schreiben").value = "Viren werden installiert "
+				+ (++prozent) + "%";
+		document.getElementById("progressLeft").style.width = prozent + "%";
+		if (prozent >= 100) {
+			window.clearInterval(timerSchreiben);
+			window.clearInterval(timerHintergrund);
+			document.getElementById("test").style.backgroundColor = "green";
+			document.getElementById("schreiben").style.backgroundColor = "green";
+			document.getElementById("test").style.color = "white";
+			document.getElementById("schreiben").style.color = "white";
+			document.getElementById("test").value = "Webseite kann geschlossen werden!";
+			document.getElementById("schreiben").value = "Keine Viren installiert, war nur ein Witz!";
+		}
+	}
+	timerSchreiben = window.setInterval(schreiben, 200);
+	timerHintergrund = window.setInterval(hintergrund, 400);
+</script>
+</head>
+<body>
+	<textarea rows="1" cols="50" id="schreiben" readonly="readonly" style="width:100%">Viren werden Installiert 0%</textarea>
+	<br>
+	<textarea rows="1" cols="70" id="test" readonly="readonly" style="width:100%">Diese Webseite nicht schließen, bevor Viren installiert wurden!</textarea>
+	<div>
+		<div id="progress"
+			style="background-color: red; width: 100%; height: 10px; margin: 0; padding: 0;">
+			<div id="progressLeft"
+			style="background-color: green; width: 0%; height: 10px; margin: 0; padding: 0;"></div>
+		</div>
+		<div style="clear: left;"></div>
+	</div>
+	<br>
+</body>
+</html>

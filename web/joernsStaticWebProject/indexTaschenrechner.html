@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Taschenrechner</title>
+<script type="text/javascript">
+	addieren = function() {
+		var summant = document.getElementById("summant").value;
+		var summant2 = document.getElementById("summant2").value;
+		var result = parseInt(summant) + parseInt(summant2);
+		document.getElementById("ergebnis").value = result;
+	}
+	subtrahieren = function() {
+		var summant = document.getElementById("minusSummant").value;
+		var summant2 = document.getElementById("minusSummant2").value;
+		var result = parseInt(summant) - parseInt(summant2);
+		document.getElementById("minusErgebnis").value = result;
+	}
+	multiplizieren = function() {
+		var summant = document.getElementById("malSummant").value;
+		var summant2 = document.getElementById("malSummant2").value;
+		var result = parseInt(summant) * parseInt(summant2);
+		document.getElementById("malergebnis").value = result;
+	}
+	dividieren = function() {
+		var summant = document.getElementById("GeteiltSummant").value;
+		var summant2 = document.getElementById("GeteiltSummant2").value;
+		var result = parseInt(summant) / parseInt(summant2);
+		document.getElementById("Geteiltergebnis").value = result;
+	}
+	schreiben = function() {
+		if (document.getElementById("schreiben").style.backgroundColor == "white") {
+			document.getElementById("schreiben").style.backgroundColor = "red";
+		} else {
+			document.getElementById("schreiben").style.backgroundColor = "white";
+		}
+	}
+	window.setInterval(schreiben, 500);
+	zombie = function() {
+		if (document.getElementById("zomb").style.backgroundColor == "rgb(255, 171, 0)") {
+			window.setInterval(zombie, 2000);
+		} else {
+			document.getElementById("zomb").style.backgroundColor = "rgb(255, 171, 0)";
+		}
+	}
+	window.setInterval(zombie, 2000);
+	rechnen = function() {
+		var zahl1 = document.getElementById("zahl1").value;
+		var zahl2 = document.getElementById("zahl2").value;
+		var operator = document.getElementById("operator").value;
+		if (operator == "+") {
+			var result = parseInt(zahl1) + parseInt(zahl2);
+		} else if (operator == "-") {
+			var result = parseInt(zahl1) - parseInt(zahl2);
+		} else if (operator == "*") {
+			var result = parseInt(zahl1) * parseInt(zahl2);
+		} else if (operator == "/") {
+			var result = parseInt(zahl1) / parseInt(zahl2);
+		}
+		document.getElementById("ergebnisAlle").value = result;
+	}
+</script>
+</head>
+<body>
+	<input type="text" id="summant" /> +
+	<input type="text" id="summant2" /> =
+	<input type="text" id="ergebnis" readonly="readonly" />
+	<input type="button" onclick="addieren()" value="Rechnen" />
+	<br>
+	<br>
+	<input type="text" id="minusSummant" /> -
+	<input type="text" id="minusSummant2" /> =
+	<input type="text" id="minusErgebnis" readonly="readonly" />
+	<input type="button" onclick="subtrahieren()" value="Rechnen" />
+	<br>
+	<br>
+	<input type="text" id="malSummant" /> *
+	<input type="text" id="malSummant2" /> =
+	<input type="text" id="malergebnis" readonly="readonly" />
+	<input type="button" onclick="multiplizieren()" value="Rechnen" />
+	<br>
+	<br>
+	<input type="text" id="GeteiltSummant" /> /
+	<input type="text" id="GeteiltSummant2" /> =
+	<input type="text" id="Geteiltergebnis" readonly="readonly" />
+	<input type="button" onclick="dividieren()" value="Rechnen" />
+	<br>
+	<br>
+	<input type="text" id="schreiben" readonly="readonly"
+		value="Achtung Viren" />
+	<br>
+	<br>
+	<input type="text" id="zomb" readonly="readonly"
+		value="Achtung Zombies" />
+	<br>
+	<br>
+	<input type="text" id="zahl1" />
+	<select id="operator">
+		<option>+</option>
+		<option>-</option>
+		<option>*</option>
+		<option>/</option>
+	</select>
+	<input type="text" id="zahl2" /> =
+	<input type="text" id="ergebnisAlle" readonly="readonly" />
+	<input type="button" onclick="rechnen()" value="Rechnen" />
+	<br>
+	<br>
+</body>
+</html>

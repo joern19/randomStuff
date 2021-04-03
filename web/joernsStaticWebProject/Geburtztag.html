@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	BildWechseln = function() {
+		var text96 = "96, alle nett und freundlich! Wer will es wissen, Bayern ist beschissen";
+		var textGeburtstag = "Herzlichen Glückwunsch zum Geburtstag Jessica";
+		if (document.getElementById("96").value == text96) {
+			document.getElementById("96").value = textGeburtstag;
+			document.getElementById("image").src = "Kuchen.jpg";
+		} else {
+			document.getElementById("96").value = text96;
+			document.getElementById("image").src = "96.jpg";
+		}
+		document.getElementById("button").value = "Drück mich nochmal";
+	}
+	
+</script>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Herzlichen Glückwunsch Jessica</h1>
+	<br>
+	<br>
+	<input id="button" type="button" onclick="BildWechseln()" value="Drück mich"/>
+	<br>
+	<textarea id="96" rows="1" cols="70" readonly="readonly"></textarea>
+	<br>
+	<img id="image"/>
+</body>
+</html>

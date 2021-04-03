@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	color = function() {
+		var element = document.getElementById("firstArea");
+		element.style.backgroundColor = "#0EC2D6";
+		var secondElement = document.getElementById("secondArea");
+		secondElement.style.backgroundColor = "#D6790E";
+		var secondElement = document.getElementById("thirdArea");
+		secondElement.style.backgroundColor = "#88ff00";
+		document.getElementById("firstArea").value = ""
+		document.getElementById("secoundArea").value = ""
+		document.getElementById("thirdArea").value = ""
+	}
+	colorGreen = function() {
+		var element = document.getElementById("firstArea");
+		element.style.backgroundColor = "#000000";
+		var secondElement = document.getElementById("secondArea");
+		secondElement.style.backgroundColor = "#290ED6";
+		var secondElement = document.getElementById("thirdArea");
+		secondElement.style.backgroundColor = "#FFFFFF";
+		document.getElementById("firstArea").value = ""
+		document.getElementById("secoundArea").value = ""
+		document.getElementById("thirdArea").value = ""
+	}
+	colorDrei = function() {
+		var element = document.getElementById("firstArea");
+		element.style.backgroundColor = "red";
+		document.getElementById("firstArea").value = "Rot"
+		var element = document.getElementById("secondArea")
+		element.style.backgroundColor = "blue";
+		document.getElementById("secondArea").value = "Blau"
+		document.getElementById("thirdArea").value = ""
+	}
+</script>
+</head>
+<body>
+	<textarea id="firstArea" rows="5" cols="50" readonly="readonly"></textarea>
+	<br>
+	<textarea id="secondArea" rows="5" cols="50" readonly="readonly"></textarea>
+	<br>
+	<textarea id="thirdArea" rows="5" cols="50" readonly="readonly"></textarea>
+	<br>
+	<input type="button" onclick="color()" value="Farbewechseln1" />
+	<br>
+	<input type="button" onclick="colorGreen()" value="Farbewechseln2" />
+	<br>
+	<input type="button" onclick="colorDrei()" value="Farbewechseln3" />
+	<br>
+</body>
+</html>

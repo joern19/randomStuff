@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	var wort = null;
+	while (wort == null || wort.length == 0) {
+		wort = prompt("Bitte gib das Wort ein.");
+	}
+	wort = wort.toUpperCase();
+	var fehlendeBuchstaben = wort.length;
+	var erraten = [];
+	for (var i = 0; i < wort.length; i++) {
+		erraten.push('_');
+	}
+	while (fehlendeBuchstaben != 0) {
+		var buchstabe = null;
+		var aktuell = "";
+		for (var i = 0; i < erraten.length; i++) {
+			aktuell += erraten[i] + ' ';
+		}
+		while (buchstabe == null || buchstabe.length != 1) {
+			buchstabe = prompt(aktuell + "\nBitte gib einen Buchstaben ein.");
+		}
+		buchstabe = buchstabe.toUpperCase();
+		for (var i = 0; i < wort.length; i++) {
+			if (wort[i] == buchstabe && erraten[i] != buchstabe) {
+				erraten[i] = buchstabe;
+				fehlendeBuchstaben--;
+			}
+		}
+	}
+	var aktuell = "";
+	for (var i = 0; i < erraten.length; i++) {
+		aktuell += erraten[i] + ' ';
+	}
+	alert("Du hast " + aktuell + " erraten.");
+</script>
+</head>
+<body>
+
+</body>
+</html>
