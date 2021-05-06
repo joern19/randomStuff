@@ -23,10 +23,10 @@ sudo pacman -Syu
 
 printTitle "Installing packages"
 
-essentail="wget git unzip python python-pip sudo curl"
+essentail="wget git unzip python python-pip doas curl"
 niceToHaveCli="tree yay ufw snapd youtube-dl docker docker-compose"
 desktop="i3-gaps i3blocks feh dmenu ttf-font-awesome lightdm-webkit2-greeter playerctl xclip"
-guiApps="gparted firefox kdeconnect ksystemlog ksysguard pavucontrol rxvt-unicode xfce4-terminal mpv"
+guiApps="gparted firefox firefox-tridactyl kdeconnect ksystemlog ksysguard pavucontrol rxvt-unicode xfce4-terminal mpv"
 sudo pacman -S --noconfirm --needed $essentail $niceToHaveCli $desktop $guiApps
 
 #echo "idk"
