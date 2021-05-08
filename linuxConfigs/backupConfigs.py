@@ -4,7 +4,6 @@
 
 import configparser
 import os
-from os import walk
 from pathlib import Path
 import shutil
 from distutils import util
@@ -131,7 +130,7 @@ def safeCopy(src : Path, dst : Path):
   # src and dst are an directory
 
   files = []
-  for (dirpath, dirnames, filenames) in walk(src):
+  for (dirpath, dirnames, filenames) in os.walk(src):
     for filename in filenames:
       files.append(Path(dirpath, filename).relative_to(src))
 
