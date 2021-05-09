@@ -2,11 +2,7 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-const char* ssid = "7902d746-7607-4757-940c-6bea6366";
-const char* password = "W9-!@h[a!)d=pU$R\\yCN+s6V-nTzxR";
-const char* mqtt_server = "192.168.178.32";
-const char* mqtt_username = "door-monitor";
-const char* mqtt_password = "xRm^<gRt$%ux9aQR7W7YVpAi<Zeu=W";
+#include <secrets.h>
 const char* mqtt_topic = "door-joern";
 
 WiFiClient wifiClient;

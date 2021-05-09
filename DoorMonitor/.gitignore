@@ -5,3 +5,4 @@
 .vscode/ipch
 
 client_go/main
+src/secrets.h
