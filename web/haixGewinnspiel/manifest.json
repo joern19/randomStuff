@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "Haix-Winner",
+  "version": "1.0",
+
+  "description": "Gewinnt das Haix Gewinnspiel",
+  "content_scripts": [
+    {
+      "matches": ["https://*.fireweeks.de/*"],
+      "js": ["main.js"]
+    }
+  ]
+}
