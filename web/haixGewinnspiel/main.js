@@ -4,7 +4,6 @@ const strasse = "";
 const hausnummer = "";
 const plz = "";
 const ort = "";
-const land = "";
 const email = "";
 
 
@@ -70,7 +69,7 @@ function check() {
       console.log("Reload triggerd");
       location.reload();
     } else {
-      item(0).click();
+      elements.item(0).click();
       setTimeout(orderNow, 200);
     }
     return;
@@ -82,11 +81,6 @@ function check() {
 function main() {
 
   console.log("Haix winner loaded");
-
-  if (window.location != "https://www.fireweeks.de/#") {
-    console.log("Unknown page..");
-    return;
-  }
 
   check();
   setInterval(function() {
