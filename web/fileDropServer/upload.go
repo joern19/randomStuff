@@ -76,5 +76,5 @@ func main() {
 	http.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
 		fmt.Fprintf(w, "OK")
 	})
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe("172.0.0.1:8080", nil)
 }

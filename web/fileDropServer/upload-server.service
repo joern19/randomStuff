@@ -1,0 +1,13 @@
+[Unit]
+Description=Upload server to upload files to
+
+[Service]
+Restart=always
+RestartSec=30
+Type=simple
+User=opc
+Group=opc
+ExecStart=/usr/bin/upload
+
+[Install]
+WantedBy=multi-user.target
