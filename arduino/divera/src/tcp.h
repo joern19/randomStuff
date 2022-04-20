@@ -13,9 +13,10 @@ void send_tcp(const char* host, uint16_t port, const char** lines) {
     return;
   }
 
-  Serial.print("Sending TCP message to server.");
+  Serial.println("Sending TCP message to server.");
 
-  for (size_t i = 0; i < sizeof(lines) / sizeof(lines[0]); i++) {
+  for (int i = 0; lines[i]; i++) {
+    Serial.println(lines[i]);
     wifiClient.println(lines[i]);
   }
 
@@ -24,7 +25,7 @@ void send_tcp(const char* host, uint16_t port, const char** lines) {
     String line = wifiClient.readStringUntil('\n');
     Serial.println(line);
     if (line == "\r") {
-      Serial.println("Breaking...");
+      Serial.println("First line of Body:");
       break;
     }
   }
