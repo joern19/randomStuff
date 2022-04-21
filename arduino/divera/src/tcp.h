@@ -1,5 +1,7 @@
 #include "global.h"
 
+WiFiClientSecure wifiClient;
+
 void send_tcp(const char* host, uint16_t port, const char** lines) {
   wifiClient.setInsecure();
 

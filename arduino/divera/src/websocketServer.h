@@ -3,11 +3,6 @@
 
 WebSocketsServer webSocketServer = WebSocketsServer(WS_PORT);
 
-void setup_websocket_server() {
-  webSocketServer.begin();
-  webSocketServer.onEvent(webSocketHandler);
-}
-
 void webSocketHandler(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
   switch(type) {
     case WStype_DISCONNECTED:
@@ -33,7 +28,16 @@ void webSocketHandler(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
   }
 }
 
-void onStateChange() {
+void setup_websocket_server() {
+  webSocketServer.begin();
+  webSocketServer.onEvent(webSocketHandler);
+}
+
+void websocket_server_loop() {
+  webSocketServer.loop();
+}
+
+void websocket_server_on_state_change() {
   if (state) {
     #ifdef WS_ON_OPEN_MESSAGE
     webSocketServer.broadcastTXT(WS_ON_OPEN_MESSAGE);

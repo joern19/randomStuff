@@ -5,7 +5,6 @@
 #include <ESP8266WiFi.h>
 #include "settings.h"
 
-WiFiClientSecure wifiClient;
 bool state = false;
 
 #endif

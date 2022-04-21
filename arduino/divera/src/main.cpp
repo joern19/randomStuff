@@ -33,6 +33,7 @@ void setup() {
 
   Serial.println("");
   Serial.println("Wifi connected!");
+  Serial.println("local IP: " + WiFi.localIP().toString());
 
   // setup websocket server
   #ifdef ENABLE_WEBSOCKET_SERVER
@@ -45,6 +46,10 @@ void setup() {
 }
 
 void loop() {
+  #ifdef ENABLE_WEBSOCKET_SERVER
+  websocket_server_loop();
+  #endif
+
   bool oldState = state;
   state = digitalRead(PIN_SWITCH) == HIGH;
 
@@ -61,7 +66,7 @@ void loop() {
       #endif
     }
     #ifdef ENABLE_WEBSOCKET_SERVER
-    onStateChange();
+    websocket_server_on_state_change();
     #endif
   }
 }
