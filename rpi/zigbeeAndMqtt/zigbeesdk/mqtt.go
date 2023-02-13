@@ -1,4 +1,4 @@
-package main
+package sdk
 
 import (
 	"fmt"
@@ -36,14 +36,14 @@ func NewMqttHelper(broker string) MqttHelper {
 	}
 }
 
-func (helper *MqttHelper) connect() {
+func (helper *MqttHelper) Connect() {
 	client := helper.client
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		panic(token.Error())
 	}
 }
 
-func (helper *MqttHelper) sub(topic string, callback MqttHandler) mqtt.Token {
+func (helper *MqttHelper) Sub(topic string, callback MqttHandler) mqtt.Token {
 	return helper.client.Subscribe(topic, helper.qos, func(c mqtt.Client, m mqtt.Message) {
 		msg := MqttMessage{
 			Topic:   m.Topic(),
@@ -54,6 +54,6 @@ func (helper *MqttHelper) sub(topic string, callback MqttHandler) mqtt.Token {
 	})
 }
 
-func (helper *MqttHelper) pub(topic string, msg interface{}) mqtt.Token {
+func (helper *MqttHelper) Pub(topic string, msg interface{}) mqtt.Token {
 	return helper.client.Publish(topic, helper.qos, false, msg)
 }

@@ -1,4 +1,4 @@
-package main
+package sdk
 
 import (
 	"encoding/json"
@@ -17,7 +17,7 @@ func SubToZigbeeDevice[D any](mqttHelper MqttHelper, name string, newDevice func
 		}
 		go callback(device)
 	}
-	mqttHelper.sub(topic, c)
+	mqttHelper.Sub(topic, c)
 }
 
 func PubToZigbeeDevice(mqttHelper MqttHelper, name string, settings any) {
@@ -27,5 +27,5 @@ func PubToZigbeeDevice(mqttHelper MqttHelper, name string, settings any) {
 		fmt.Printf("Failed to marshal: '%+v': %s", settings, err)
 		return
 	}
-	mqttHelper.pub(topic, out)
+	mqttHelper.Pub(topic, out)
 }
