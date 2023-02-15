@@ -3,6 +3,8 @@ package sdk
 import (
 	"encoding/json"
 	"fmt"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 // newDevice should return a new instance of the zigbee device (see package zigbeedevice)
@@ -20,12 +22,12 @@ func SubToZigbeeDevice[D any](mqttHelper MqttHelper, name string, newDevice func
 	mqttHelper.Sub(topic, c)
 }
 
-func PubToZigbeeDevice(mqttHelper MqttHelper, name string, settings any) {
+func PubToZigbeeDevice(mqttHelper MqttHelper, name string, settings any) mqtt.Token {
 	topic := "zigbee/" + name + "/set"
 	out, err := json.Marshal(settings)
 	if err != nil {
 		fmt.Printf("Failed to marshal: '%+v': %s", settings, err)
-		return
+		return nil
 	}
-	mqttHelper.Pub(topic, out)
+	return mqttHelper.Pub(topic, out)
 }

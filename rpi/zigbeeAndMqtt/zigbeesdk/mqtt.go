@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/google/uuid"
 )
 
 type MqttMessage struct {
@@ -21,7 +22,7 @@ type MqttHelper struct {
 func NewMqttHelper(broker string) MqttHelper {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker(fmt.Sprintf("tcp://%s", broker))
-	opts.SetClientID("go_mqtt_client")
+	opts.SetClientID("go_mqtt_client_" + uuid.New().String())
 
 	defaultHandler := func(client mqtt.Client, msg mqtt.Message) {
 		fmt.Printf("[Warning] Unhandled message: %s on topic: %s\n", msg.Payload(), msg.Topic())
@@ -32,7 +33,7 @@ func NewMqttHelper(broker string) MqttHelper {
 
 	return MqttHelper{
 		client: client,
-		qos:    0,
+		qos:    1,
 	}
 }
 
