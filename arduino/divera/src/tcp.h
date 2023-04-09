@@ -8,7 +8,7 @@ void send_tcp(const char* host, uint16_t port, const char** lines) {
   int retries = TCP_MAX_RETRIES;
   while (!wifiClient.connect(host, port) && retries > 0) {
     retries--;
-    Serial.printf("Failed to connect to %s", host);
+    Serial.printf("Failed to connect to %s\n", host);
     delay(100);
   }
   if (retries < 1) {

@@ -20,12 +20,12 @@
 //#define ENABLE_TCP_ON_OPEN // uncomment this to send a tcp message, when the switch opens
 #define TCP_ON_OPEN_HOST "httpbin.org" // the host to send the request to
 #define TCP_ON_OPEN_PORT 443 // the port to connect to
-const char* TCP_ON_OPEN_LINES[] = { // the lines to send to the host. May be http
+const char* TCP_ON_OPEN_LINES[] = { // the lines to send to the host. MAY be http
   "GET /get HTTP/1.1", // http method ; path ; http version
   "Host: " TCP_ON_OPEN_HOST, // http header
   "user-agent: human/42",
-  "", // empty line. I think http needs this.
-  0 // This is important, to mark the end of the array
+  "", // An empty line after headers. See RFC 2616 4.1
+  0 // A zero is used to indicate the end of the array
 };
 
 // same as above, but sends the lines on close, instead of when the switch opens
@@ -33,7 +33,20 @@ const char* TCP_ON_OPEN_LINES[] = { // the lines to send to the host. May be htt
 #define TCP_ON_CLOSE_HOST ""
 #define TCP_ON_CLOSE_PORT 443
 const char* TCP_ON_CLOSE_LINES[] = {
-  0 // This is important, to mark the end of the array
+  0
+};
+
+// Because I want to use this program in a somewhat crictical use-case, I want to know if something is wrong. Therefore I send a http every x hours to see if the esp8266 is still online
+// To reduce the complexity, this program will not be able to send two requests at once. Therefore I want to reduce the time spend sending the health request to a minimum. I will not check the response etc.
+//#define ENABLE_TCP_HEALTH_REPORT // uncomment this to send a tcp message every x milliseconds (see below)
+#define TCP_HEALTH_REPORT_INTERVAL 3600000 // (ms) the interval, in which the request should be made in milliseconds. 1h = 3600000ms
+// See comments on TCP_ON_OPEN above
+#define TCP_HEALTH_HOST "httpbin.org"
+#define TCP_HEALTH_PORT 443
+const char* TCP_HEALTH_LINES[] = {
+  "POST /post HTTP/1.1",
+  "",
+  0
 };
 
 //#define ENABLE_WEBSOCKET_SERVER // uncomment this to start a websocket server, that sends the strings below when the switch opens and closes.

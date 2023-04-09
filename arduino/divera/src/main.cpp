@@ -7,7 +7,7 @@
 #include "websocketServer.h"
 #endif
 
-#if defined(ENABLE_TCP_ON_OPEN) || defined(ENABLE_TCP_ON_CLOSE)
+#if defined(ENABLE_TCP_ON_OPEN) || defined(ENABLE_TCP_ON_CLOSE) || defined(ENABLE_TCP_HEALTH_REPORT)
 #include "tcp.h"
 #endif
 
@@ -45,9 +45,20 @@ void setup() {
   state = digitalRead(PIN_SWITCH) == HIGH;
 }
 
+#ifdef ENABLE_TCP_HEALTH_REPORT
+unsigned long lastExec = 0;
+#endif
 void loop() {
   #ifdef ENABLE_WEBSOCKET_SERVER
   websocket_server_loop();
+  #endif
+
+  #ifdef ENABLE_TCP_HEALTH_REPORT
+  if ((millis() - lastExec) > TCP_HEALTH_REPORT_INTERVAL) {
+    send_tcp(TCP_HEALTH_HOST, TCP_HEALTH_PORT, TCP_HEALTH_LINES);
+    Serial.println("HEALTH REPORT sent.");
+    lastExec = millis();
+  }
   #endif
 
   bool oldState = state;
