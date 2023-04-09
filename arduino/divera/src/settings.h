@@ -16,6 +16,7 @@
 //#define WIFI_HOSTNAME "esp8266" // optionally uncomment this and set the hostname. (may not work: please look up, how hostnames work)
 
 #define TCP_MAX_RETRIES 5 // The maximum number of tries, to send a http request
+//#define USE_SSL // Uncomment this, to use SSL for all request
 
 //#define ENABLE_TCP_ON_OPEN // uncomment this to send a tcp message, when the switch opens
 #define TCP_ON_OPEN_HOST "httpbin.org" // the host to send the request to
