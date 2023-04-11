@@ -11,6 +11,10 @@
 #include "tcp.h"
 #endif
 
+#ifdef ENABLE_MQTT
+#include "mqttClient.h"
+#endif
+
 void setup() {
   Serial.begin(115200);
 
@@ -35,12 +39,14 @@ void setup() {
   Serial.println("Wifi connected!");
   Serial.println("local IP: " + WiFi.localIP().toString());
 
-  // setup websocket server
   #ifdef ENABLE_WEBSOCKET_SERVER
   setup_websocket_server();
   #endif
 
-  // setup the switch
+  #ifdef ENABLE_MQTT
+  mqtt_connect();
+  #endif
+
   pinMode(PIN_SWITCH, INPUT_PULLUP);
   state = digitalRead(PIN_SWITCH) == HIGH;
 }
@@ -70,10 +76,16 @@ void loop() {
       #ifdef ENABLE_TCP_ON_OPEN
       send_tcp(TCP_ON_OPEN_HOST, TCP_ON_OPEN_PORT, TCP_ON_OPEN_LINES);
       #endif
+      #ifdef ENABLE_MQTT
+      mqtt_publish(MQTT_ON_OPEN_TOPIC, MQTT_ON_OPEN_MESSAGE);
+      #endif
     } else {
       Serial.println("The switch closed.");
       #ifdef ENABLE_TCP_ON_CLOSE
       send_tcp(TCP_ON_CLOSE_HOST, TCP_ON_CLOSE_PORT, TCP_ON_CLOSE_LINES);
+      #endif
+      #ifdef ENABLE_MQTT
+      mqtt_publish(MQTT_ON_CLOSE_TOPIC, MQTT_ON_CLOSE_MESSAGE);
       #endif
     }
     #ifdef ENABLE_WEBSOCKET_SERVER

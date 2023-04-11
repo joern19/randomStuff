@@ -1,16 +1,6 @@
 #include "global.h"
 
-#ifdef USE_SSL
-WiFiClientSecure wifiClient;
-#else
-WiFiClient wifiClient;
-#endif
-
 void send_tcp(const char* host, uint16_t port, const char** lines) {
-  #ifdef USE_SSL
-  wifiClient.setInsecure();
-  #endif
-
   int retries = TCP_MAX_RETRIES;
   while (!wifiClient.connect(host, port) && retries > 0) {
     retries--;

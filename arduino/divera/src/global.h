@@ -7,4 +7,11 @@
 
 bool state = false;
 
+#ifdef USE_SSL
+WiFiClientSecure wifiClient;
+wifiClient.setInsecure();
+#else
+WiFiClient wifiClient;
+#endif
+
 #endif
