@@ -7,7 +7,7 @@ void mqtt_callback(const char *topic, const byte *payload, unsigned int length) 
     Serial.print("Unexpected MQTT message on topic: ");
     Serial.println(topic);
     Serial.print("Message: -----");
-    for (int i = 0; i < length; i++) {
+    for (unsigned int i = 0; i < length; i++) {
         Serial.print((char) payload[i]);
     }
     Serial.println("-----");
