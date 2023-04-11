@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"strings"
+	"time"
 
 	"github.com/joern19/zigbeeAndMqtt/sdk"
 	"github.com/joern19/zigbeeAndMqtt/sdk/zigbeedevice"
@@ -16,6 +19,7 @@ func main() {
 	mqttHelper := sdk.NewMqttHelper(Broker)
 	mqttHelper.Connect()
 	listenOnPhysicalRemote(mqttHelper)
+	listenForAlarm(mqttHelper)
 	<-make(chan int)
 }
 
@@ -69,4 +73,60 @@ func listenOnPhysicalRemote(mqttHelper sdk.MqttHelper) {
 		}
 	}
 	sdk.SubToZigbeeDevice(mqttHelper, Remote, newDevice, handler)
+}
+
+func callDivera() {
+	DIVERA_TOKEN := ""
+	body := `{"type": "DME", "text": "Automatische Alarmierung durch digitalen Meldeempfänger. Details können aus technischen Gründen nicht bereitgestellt werden."}`
+	res, err := http.Post("https://www.divera247.com/api/alarm?accesskey="+DIVERA_TOKEN, "application/json", strings.NewReader(body))
+	if err != nil {
+		fmt.Printf("Failed to call divera: %s\n", err)
+		return
+	}
+	fmt.Printf("Request to Divera was successful: $%d\n", res.StatusCode)
+}
+
+func isTestAlarm() bool {
+	// The test alarm is every month on the 15th at 19 o'clock.
+	now := time.Now()
+	if now.Day() == 15 {
+		if now.Hour() == 19 && now.Minute() < 3 { // Tolerance of + 2
+			return true
+		}
+		if now.Hour() == 18 && now.Minute() > 58 { // Tolerance of -1
+			return true
+		}
+	}
+	return false
+}
+
+// This is stuff to happen, when I get a call from my volunteer fire department.
+func listenForAlarm(mqttHelper sdk.MqttHelper) {
+	handleAlarm := func() {
+		fmt.Println("[Alarm] triggered!")
+
+		if isTestAlarm() {
+			fmt.Println("[Alarm] is a test alarm. Nothing will be done.")
+			return
+		}
+
+		callDivera()
+		sdk.PubToZigbeeDevice(mqttHelper, Panel, zigbeedevice.L1527{
+			ColorTemp:  250,
+			Transition: 10, // Maybe this will not flashbang me?
+			Brightness: 253,
+		})
+
+		time.Sleep(3 * time.Minute) // 3 Minutes shall be more then enogh. HURRY!
+		fmt.Println("[Alarm] Turning lights off.")
+		sdk.PubToZigbeeDevice(mqttHelper, Panel, zigbeedevice.L1527{
+			State: "OFF",
+		})
+	}
+
+	mqttHelper.Sub("dme/relay", func(msg sdk.MqttMessage) {
+		if string(msg.Message[:]) == "close" {
+			go handleAlarm()
+		}
+	})
 }
