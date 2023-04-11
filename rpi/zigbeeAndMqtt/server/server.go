@@ -76,14 +76,7 @@ func listenOnPhysicalRemote(mqttHelper sdk.MqttHelper) {
 }
 
 func callDivera() {
-	DIVERA_TOKEN := ""
-	body := `{"type": "DME", "text": "Automatische Alarmierung durch digitalen Meldeempfänger. Details können aus technischen Gründen nicht bereitgestellt werden."}`
-	res, err := http.Post("https://www.divera247.com/api/alarm?accesskey="+DIVERA_TOKEN, "application/json", strings.NewReader(body))
-	if err != nil {
-		fmt.Printf("Failed to call divera: %s\n", err)
-		return
-	}
-	fmt.Printf("Request to Divera was successful: $%d\n", res.StatusCode)
+	// body := `{"type": "DME", "text": "Automatische Alarmierung durch digitalen Meldeempfänger. Details können aus technischen Gründen nicht bereitgestellt werden."}`
 }
 
 func isTestAlarm() bool {
