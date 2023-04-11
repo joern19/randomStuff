@@ -59,6 +59,10 @@ void loop() {
   websocket_server_loop();
   #endif
 
+  #ifdef ENABLE_MQTT
+  mqttClient.loop();
+  #endif
+
   #ifdef ENABLE_TCP_HEALTH_REPORT
   if ((millis() - lastExec) > TCP_HEALTH_REPORT_INTERVAL) {
     send_tcp(TCP_HEALTH_HOST, TCP_HEALTH_PORT, TCP_HEALTH_LINES);
