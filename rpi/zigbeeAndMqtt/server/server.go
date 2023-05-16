@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"strings"
 	"time"
 
 	"github.com/joern19/zigbeeAndMqtt/sdk"
