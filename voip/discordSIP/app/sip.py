@@ -13,25 +13,27 @@ ep_cfg.logConfig.consoleLevel = 5
 
 ep.libInit(ep_cfg)
 
-tc_upd = pj.TransportConfig()
+tc_udp = pj.TransportConfig()
 #tc_upd.portRange = 4
-ep.transportCreate(pj.PJSIP_TRANSPORT_UDP, tc_upd)
+tc_udp.port = 56447
+ep.transportCreate(pj.PJSIP_TRANSPORT_UDP, tc_udp)
 #tc_tcp = pj.TransportConfig()
 #tc_tcp.randomizePort = True
 #ep.transportCreate(pj.PJSIP_TRANSPORT_TCP, tc_tcp)
 
 ep.libStart()
 
+pj.Endpoint.instance().audDevManager().setNullDev()
 
 accountConfig: pj.AccountConfig = pj.AccountConfig()
 
-accountConfig.idUri = "sip:1002@10.2.1.106"
-accountConfig.regConfig.registrarUri = "sip:10.2.1.106"
+accountConfig.idUri = "sip:pjsua2todiscord@192.168.1.1"
+accountConfig.regConfig.registrarUri = "sip:192.168.1.1"
 accountConfig.regConfig.registerOnAdd = True
 
-accountConfig.sipConfig.authCreds.append(pj.AuthCredInfo("digest", "*", "1002", 0, "12345"))
+accountConfig.sipConfig.authCreds.append(pj.AuthCredInfo("digest", "*", "pjsua2todiscord", 0, "ThisPasswordHasToDifferToTheName"))
 #accountConfig.sipConfig.proxies.append("sip:192.168.1.1:5060;transport=udp")
-#accountConfig.presConfig.publishEnabled = True
+accountConfig.presConfig.publishEnabled = True
 
 #accountConfig.mediaConfig.useLoopMedTp = True
 #accountConfig.mediaConfig.transportConfig.portRange = 1

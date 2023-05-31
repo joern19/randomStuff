@@ -17,8 +17,10 @@ class Account(pj.Account):
         print("Incoming call from ", call.info().remote_uri)
 
     def onRegState(self, prm):
-        print("onRegState: ", prm)
-        #self.activeCalls.append(start_call(self))
+        if (prm.code >= 200 and prm.code <= 299):
+            self.activeCalls.append(start_call(self))
+        else:
+            print("onRegState was not successful: ", prm.status)
 
     def onIncomingCall(self, prm):
         c = Call(self, call_id=prm.callId)

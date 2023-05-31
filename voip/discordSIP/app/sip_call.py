@@ -22,8 +22,6 @@ class Call(pj.Call):
     
     def onCallMediaState(self, prm):
         global test
-        test = pj.AudioMediaPlayer()
-        test.createPlayer("/home/not-a-robot/Downloadable/test.wav")
         print("\n\n\n-------------------------------------------------------- on_media_state------------------------------\n\n\n")
         ci = self.getInfo()
         print(len(ci.media))
@@ -33,7 +31,6 @@ class Call(pj.Call):
                 am = pj.AudioMedia.typecastFromMedia(m)
 
                 #sip_audio.createWavPlayer().startTransmit(am)
-                test.startTransmit(am)
                 am.startTransmit(am)
                 #break
 
@@ -49,8 +46,8 @@ def start_call(acc) -> Call:
     prm.opt.videoCount = 0
 
     try:
-        #call.makeCall(f"sip:{os.environ['PHONE_NUMBER']}@192.168.1.1", prm)
-        call.makeCall("sip:1001@192.168.1.1", prm)
+        call.makeCall(f"sip:{os.environ['PHONE_NUMBER']}@192.168.1.1", prm)
+        #call.makeCall("sip:**623@192.168.1.1", prm)
     except Exception as e:
         print("!!!!Error!!!!")
         print(e.info())
