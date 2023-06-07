@@ -1,5 +1,5 @@
 # docker build . -t pjsua2-python
-# docker run -it -v ./app:/app -p 56447:56447/udp --entrypoint /bin/sh pjsua2-python
+# docker run --rm -it -v ./app:/app --network host --entrypoint /bin/sh pjsua2-python
 # Inside the container, cd /app and start the app with python3 sip.py
 FROM alpine:latest
 

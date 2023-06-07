@@ -14,8 +14,7 @@ ep_cfg.logConfig.consoleLevel = 5
 ep.libInit(ep_cfg)
 
 tc_udp = pj.TransportConfig()
-#tc_upd.portRange = 4
-tc_udp.port = 56447
+#tc_udp.portRange = 1 # How I understand it, this are the number of ports above "port", that can be used for rport. With a value of one, the only option is 56448 here?
 ep.transportCreate(pj.PJSIP_TRANSPORT_UDP, tc_udp)
 #tc_tcp = pj.TransportConfig()
 #tc_tcp.randomizePort = True
