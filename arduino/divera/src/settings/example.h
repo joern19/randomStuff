@@ -9,19 +9,17 @@
 
 #define PIN_SWITCH D6 // The pin, the switch is connected to. (The switch should be connected to Ground and this pin)
 
-#define WIFI_SSID "<your ssid>" // The name of your wifi network
-#define WIFI_PSK "<your password>" // The password of your wifi network
-//#define WIFI_HOSTNAME "esp8266" // optionally uncomment this and set the hostname. (may not work: please look up, how hostnames work)
+#define WIFI_HOSTNAME "esp" // optionally uncomment this and set the hostname. (may not work: please look up, how hostnames work)
 
 #define TCP_MAX_RETRIES 5 // The maximum number of tries, to send a http request
 //#define USE_SSL // Uncomment this, to use SSL for all request
 
-//#define ENABLE_TCP_ON_OPEN // uncomment this to send a tcp message, when the switch opens
-#define TCP_ON_OPEN_HOST "httpbin.org" // the host to send the request to
-#define TCP_ON_OPEN_PORT 443 // the port to connect to
+#define ENABLE_TCP_ON_OPEN // uncomment this to send a tcp message, when the switch opens
+#define TCP_ON_OPEN_HOST "10.1.2.1" // the host to send the request to
+#define TCP_ON_OPEN_PORT 8080 // the port to connect to
 const char* TCP_ON_OPEN_LINES[] = { // the lines to send to the host. MAY be http
   "GET /get HTTP/1.1", // http method ; path ; http version
-  "Host: " TCP_ON_OPEN_HOST, // http header
+  "Host: minecraft.tech", // http header
   "user-agent: human/42",
   "", // An empty line after headers. See RFC 2616 4.1
   0 // A zero is used to indicate the end of the array
@@ -40,7 +38,7 @@ const char* TCP_ON_CLOSE_LINES[] = {
 //#define ENABLE_TCP_HEALTH_REPORT // uncomment this to send a tcp message every x milliseconds (see below)
 #define TCP_HEALTH_REPORT_INTERVAL 3600000 // (ms) the interval, in which the request should be made in milliseconds. 1h = 3600000ms
 // See comments on TCP_ON_OPEN above
-#define TCP_HEALTH_HOST "httpbin.org"
+#define TCP_HEALTH_HOST "10.1.2.1"
 #define TCP_HEALTH_PORT 443
 const char* TCP_HEALTH_LINES[] = {
   "POST /post HTTP/1.1",
@@ -48,7 +46,7 @@ const char* TCP_HEALTH_LINES[] = {
   0
 };
 
-//#define ENABLE_MQTT // uncomment this, to connect to the mqtt broker below and publish the respective messages when the switch opens or closes.
+#define ENABLE_MQTT // uncomment this, to connect to the mqtt broker below and publish the respective messages when the switch opens or closes.
 #define MQTT_HOST "broker.hivemq.com"
 #define MQTT_PORT 1883
 #define MQTT_USERNAME ""

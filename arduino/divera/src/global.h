@@ -3,7 +3,8 @@
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include "settings.h"
+#include "settings/secret.h"
+#include "settings/divera.h"
 
 bool state = false;
 
