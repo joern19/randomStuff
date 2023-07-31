@@ -55,6 +55,8 @@ void setup() {
 unsigned long lastExec = 0;
 #endif
 void loop() {
+  delay(1); // May reduce power consumption: https://hackaday.com/2022/10/28/esp8266-web-server-saves-60-power-with-a-1-ms-delay/
+
   #ifdef ENABLE_WEBSOCKET_SERVER
   websocket_server_loop();
   #endif
