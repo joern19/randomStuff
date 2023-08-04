@@ -1,4 +1,4 @@
-package discord2voip.audiohandler;
+package discord2voip.discord.audiohandler;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import discord2voip.Constants;
+import discord2voip.discord.Constants;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 public class MyMusicPlayer implements AudioSendHandler {

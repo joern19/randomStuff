@@ -1,10 +1,10 @@
-package discord2voip.audiohandler;
+package discord2voip.discord.audiohandler;
 
 import java.nio.ByteBuffer;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import discord2voip.Constants;
+import discord2voip.discord.Constants;
 import net.dv8tion.jda.api.audio.AudioReceiveHandler;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 import net.dv8tion.jda.api.audio.CombinedAudio;

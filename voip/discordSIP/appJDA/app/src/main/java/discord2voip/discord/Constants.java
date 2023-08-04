@@ -1,4 +1,4 @@
-package discord2voip;
+package discord2voip.discord;
 
 import java.nio.ByteBuffer;
 
