@@ -1,25 +1,22 @@
 name: Wireguard gateway
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}
   push:
     paths:
-      - 'gateway/gateway.conf'
+      - gateway/gateway.conf
 
 jobs:
   deploy-gateway-config:
     runs-on: ubuntu-latest
     steps:
       - name: Configure SSH
+        shell: bash
         run: |
-	  mkdir -p ~/.ssh/
-	  umask 177
-	  echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-	  echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-	shell: bash
-	env:
-	  SSH_PRIVATE_KEY: ${{secrets.GATEWAY_SSH_PRIVATE_KEY}}
-	  SSH_KNOWN_HOSTS: ${{secrets.GATEWAY_SSH_KNOWN_HOSTS}}
+          mkdir -p ~/.ssh/
+          umask 177
+          echo "${{secrets.GATEWAY_SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+          echo "${{secrets.GATEWAY_SSH_KNOWN_HOSTS}}" > ~/.ssh/known_hosts
       - name: Upload wireguard config
         run: rsync -av gateway/gateway.conf github@gateway.hirschfeld.tech:/etc/wireguard
       - name: Restart wireguard
