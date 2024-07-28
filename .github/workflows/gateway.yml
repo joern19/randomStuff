@@ -10,6 +10,7 @@ jobs:
   deploy-gateway-config:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Configure SSH
         shell: bash
         run: |
