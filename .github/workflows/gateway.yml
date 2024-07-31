@@ -20,5 +20,7 @@ jobs:
           echo "${{secrets.GATEWAY_SSH_KNOWN_HOSTS}}" > ~/.ssh/known_hosts
       - name: Upload wireguard config
         run: rsync -av gateway/gateway.conf github@gateway.hirschfeld.tech:/etc/wireguard
+      - name: Restore firewall rules
+        run: ssh github@gateway.hirschfeld.tech sudo /usr/sbin/iptables-restore /etc/iptables/rules.v4
       - name: Restart wireguard
         run: ssh github@gateway.hirschfeld.tech sudo /bin/systemctl restart wg-quick@gateway
