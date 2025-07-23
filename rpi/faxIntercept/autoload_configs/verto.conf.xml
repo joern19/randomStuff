@@ -13,8 +13,8 @@
 
   <profiles>
     <profile name="default-v4">
-      <param name="bind-local" value="$${local_ip_v4}:8081"/>
-      <param name="bind-local" value="$${local_ip_v4}:8082" secure="true"/>
+      <param name="bind-local" value="10.0.0.1:8081"/>
+      <param name="bind-local" value="10.0.0.1:8082" secure="true"/>
       <param name="force-register-domain" value="$${domain}"/>
       <param name="secure-combined" value="$${certs_dir}/wss.pem"/>
       <param name="secure-chain" value="$${certs_dir}/wss.pem"/>
@@ -23,7 +23,7 @@
       <param name="blind-reg" value="false"/>
       <param name="mcast-ip" value="224.1.1.1"/>
       <param name="mcast-port" value="1337"/>
-      <param name="rtp-ip" value="$${local_ip_v4}"/>
+      <param name="rtp-ip" value="10.0.0.1"/>
       <param name="ext-rtp-ip" value="$${external_rtp_ip}"/>
       <param name="local-network" value="localnet.auto"/>
       <param name="outbound-codec-string" value="opus,h264,vp8"/>

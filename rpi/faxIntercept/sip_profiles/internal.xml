@@ -94,9 +94,9 @@
     <param name="outbound-codec-prefs" value="$${global_codec_prefs}"/>
     <param name="rtp-timer-name" value="soft"/>
     <!-- ip address to use for rtp, DO NOT USE HOSTNAMES ONLY IP ADDRESSES -->
-    <param name="rtp-ip" value="$${local_ip_v4}"/>
+    <param name="rtp-ip" value="10.0.0.1"/>
     <!-- ip address to bind to, DO NOT USE HOSTNAMES ONLY IP ADDRESSES -->
-    <param name="sip-ip" value="$${local_ip_v4}"/>
+    <param name="sip-ip" value="10.0.0.1"/>
     <param name="hold-music" value="$${hold_music}"/>
     <param name="apply-nat-acl" value="nat.auto"/>
 
@@ -164,7 +164,7 @@
     <!-- used to share presence info across sofia profiles -->
     <!-- Name of the db to use for this profile -->
     <!--<param name="dbname" value="share_presence"/>-->
-    <param name="presence-hosts" value="$${domain},$${local_ip_v4}"/>
+    <param name="presence-hosts" value="$${domain},10.0.0.1"/>
     <param name="presence-privacy" value="$${presence_privacy}"/>
     <!-- ************************************************* -->
 
@@ -293,8 +293,9 @@
          auto                  - Use guessed ip.
          auto-nat              - Use ip learned from NAT-PMP or UPNP
     -->
-    <param name="ext-rtp-ip" value="$${external_rtp_ip}"/>
-    <param name="ext-sip-ip" value="$${external_sip_ip}"/>
+    <param name="ext-rtp-ip" value="10.0.0.1"/>
+    <param name="ext-sip-ip" value="10.0.0.1"/>
+    <param name="stun-enabled" value="false"/>
 
     <!-- rtp inactivity timeout -->
     <param name="rtp-timeout-sec" value="300"/>
