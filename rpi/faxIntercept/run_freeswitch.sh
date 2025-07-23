@@ -1,2 +1,2 @@
 #!/bin/sh
-podman run --rm -it --network host -v $(dirname "$0"):/usr/local/freeswitch/conf freeswitch "/usr/local/freeswitch/bin/freeswitch"
+podman run -it --network host --restart=always -v $(dirname "$0"):/usr/local/freeswitch/conf -v /webhookUrl.txt:/webhookUrl.txt freeswitch-custom "/usr/local/freeswitch/bin/freeswitch"
