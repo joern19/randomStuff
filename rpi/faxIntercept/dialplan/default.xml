@@ -69,7 +69,8 @@
         <!--<action application="transfer" data="fritz-fax"/>-->
 
         <action application="set" data="fax_file=$${temp_dir}/fax-${uuid}.tif" />
-        <action application="set" data="execute_on_fax_success=lua ../conf/onfax.lua ${fax_file}"/>
+        <action application="set" data="execute_on_fax_detect=lua ../conf/onfax.lua ${fax_file}"/>
+        <action application="set" data="execute_on_fax_success=lua ../conf/forwardfax.lua ${fax_file}"/>
         <action application="rxfax" data="${fax_file}"/>
         <action application="hangup"/>
       </condition>
