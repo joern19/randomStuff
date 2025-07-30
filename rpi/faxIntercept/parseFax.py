@@ -78,7 +78,7 @@ details = extractDetails(text)
 if "SA_Davenstedt" in text:
   print("Found SA_Davenstedt, everyone will be called.")
   triggerDiscord(text)
-  triggerDiscord(details)
+  triggerDiscord(str(details))
 else:
   print("Probably alarm for the AB-Hygene. We *could* check and send an alarm..")
 
