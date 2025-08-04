@@ -1,0 +1,12 @@
+[Unit]
+Description=listener
+After=network.target
+
+[Service]
+EnvironmentFile=/home/pi/alarm.envfile
+ExecStart=python3 /home/pi/mqtt/listener.py
+Restart=always
+PIDFile=/home/pi/mqtt.pid
+
+[Install]
+WantedBy=multi-user.target
