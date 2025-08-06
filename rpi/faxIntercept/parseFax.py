@@ -4,6 +4,7 @@ import os
 import time
 import pytesseract
 import re
+import json
 from urllib.parse import quote
 from dataclasses import dataclass
 from PIL import Image
@@ -50,6 +51,24 @@ class Details:
   objekt: str
   ortsteil: str
 
+def triggerDivera(details: Details):
+  group = os.environ.get("DIVERA_GROUP")
+  key = os.environ.get("DIVERA_ACCESS_KEY")
+  body = json.dumps({'Alarm': {
+    'title': details.meldebild,
+    'text': details.bemerkung,
+    'group': int(group),
+    'notification_type': 3,
+    'destination': True,
+    'destination_address': details.str,
+    'additional_text_1': details.maps,
+    'priority': details.sonderrechte,
+    'additional_text_2': details.ortsteil,
+    'additional_text_3': details.objekt
+  }})
+  # https://api.divera247.com/?urls.primaryName=api%2Fv2%2Falarm
+  requests.post('https://app.divera245.com/api/v2/alarms', json=body)
+
 def get(key, text):
   exp = "(?<=" + key + ").*"
   result = re.search(exp, text)
@@ -79,6 +98,7 @@ if "SA_Davenstedt" in text:
   print("Found SA_Davenstedt, everyone will be called.")
   triggerDiscord(text)
   triggerDiscord(str(details))
+  triggerDivera(details)
 else:
   print("Probably alarm for the AB-Hygene. We *could* check and send an alarm..")
 
