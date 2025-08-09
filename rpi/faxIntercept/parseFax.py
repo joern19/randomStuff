@@ -54,7 +54,7 @@ class Details:
 def triggerDivera(details: Details):
   group = os.environ.get("DIVERA_GROUP")
   key = os.environ.get("DIVERA_ACCESS_KEY")
-  body = json.dumps({'Alarm': {
+  body = {'Alarm': {
     'title': details.meldebild,
     'text': details.bemerkung,
     'group': int(group),
@@ -65,9 +65,11 @@ def triggerDivera(details: Details):
     'priority': details.sonderrechte,
     'additional_text_2': details.ortsteil,
     'additional_text_3': details.objekt
-  }})
+  }}
+  print(json.dumps(body))
+  print("Response:")
   # https://api.divera247.com/?urls.primaryName=api%2Fv2%2Falarm
-  requests.post('https://app.divera245.com/api/v2/alarms', json=body)
+  print(requests.post('https://app.divera245.com/api/v2/alarms', json=body).__dict__)
 
 def get(key, text):
   exp = "(?<=" + key + ").*"
@@ -94,11 +96,13 @@ waitForPage()
 text = ocr()
 details = extractDetails(text)
 
+triggerDiscord(text)
+
 if "SA_Davenstedt" in text:
   print("Found SA_Davenstedt, everyone will be called.")
-  triggerDiscord(text)
   triggerDiscord(str(details))
   triggerDivera(details)
 else:
   print("Probably alarm for the AB-Hygene. We *could* check and send an alarm..")
+  triggerDiscord("SA_Davenstedt NOT FOUND!\n" + str(details))
 
