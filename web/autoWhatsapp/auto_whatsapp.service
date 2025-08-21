@@ -1,0 +1,7 @@
+[Unit]
+Description=Send whatsapp message
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/pi/autoWhatsapp
+ExecStart=podman run -v /home/pi/autoWhatsapp.json:/root/autoWhatsapp.json -v /home/pi/autowhatsapp.default-release/:/root/.mozilla/firefox/autowhatsapp.default-release/ autowhatsapp
