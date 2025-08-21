@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 import os
 import time
 import json
@@ -12,14 +12,23 @@ import json
 with open(os.environ['HOME'] + "/autoWhatsapp.json", "r", encoding="utf-8") as f:
     config = json.load(f)
 
-# --- Setup Firefox + Geckodriver ---
 options = Options()
-options.set_preference("dom.webnotifications.enabled", False)
-options.add_argument("-profile")
-options.add_argument(os.environ['HOME'] + "/.mozilla/firefox/autowhatsapp.default-release")
-options.add_argument("--headless")
-service = Service("/usr/bin/geckodriver", log_path="geckodriver.log", service_log_path="service-geckodriver.log")
-driver = webdriver.Firefox(service=service, options=options)
+options.add_argument("--disable-gpu")
+options.add_argument("--disable-software-rasterizer")
+options.add_argument("--disable-extensions")
+options.add_argument("--disable-translate")
+options.add_argument("--headless=new")
+options.add_argument("--window-size=1280,800")
+options.add_argument(
+    "--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/116.0.5845.96 Safari/537.36"
+)
+
+options.add_argument("--user-data-dir=" + os.environ['HOME'] + "/autowhatsapp-chromium-user-dir")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+service = Service("/usr/bin/chromedriver")
+driver = webdriver.Chrome(service=service, options=options)
 wait = WebDriverWait(driver, 10 * 60)
 
 def waitFor(xpath: str):
@@ -68,5 +77,7 @@ for option in config['options']:
 time.sleep(3)
 
 clickAfterWait('//div[@aria-label="Send"]')
+
+time.sleep(20) # make sure the message is send or smth
 
 print("Message sent ✅")
