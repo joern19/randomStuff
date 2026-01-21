@@ -1,0 +1,14 @@
+jobs:
+  - name: install-self
+    plan:
+      - task: install-self-task
+        config:
+          image_resource:
+            type: registry-image
+            source:
+              repository: busybox
+              tag: 1.37-musl
+          run:
+            path: echo
+            args: [ "Hello world!" ]
+
