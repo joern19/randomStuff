@@ -1,0 +1,16 @@
+#resources:
+#- name: repo
+#  type: git
+#  source:
+#    uri: http://172.20.251.170:8085/repo1
+
+jobs:
+- name: deploy_suite
+  plan:
+#  - get: repo
+#    trigger: true
+
+  {{- range .Values.services }}
+  - task: deploy_{{ .name }}
+    {{- include "pipelines.remoteTask" (printf "podman run -d --name %s --replace %s" .name .run) | nindent 4 }}
+  {{- end }}
