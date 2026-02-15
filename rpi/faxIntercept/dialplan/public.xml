@@ -32,10 +32,5 @@
 	<action application="playback" data="{loops=10}tone_stream://path=${conf_dir}/fur_elise.ttml"/>
       </condition>
     </extension>
-
-    <!--
-	You can place files in the public directory to get included.
-    -->
-    <X-PRE-PROCESS cmd="include" data="public/*.xml"/>
   </context>
 </include>
