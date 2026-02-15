@@ -28,7 +28,7 @@ services:
     restart: on-failure
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.concourse.rule=Host(`concourse.l.hirschfeld.tech`)"
+      - "traefik.http.routers.concourse.rule=Host(`concourse.l.joern19.de`)"
       - "traefik.http.routers.concourse.entrypoints=web,websecure"
       - "traefik.http.services.concourse.loadbalancer.server.port=8080"
     depends_on:
@@ -44,7 +44,7 @@ services:
       CONCOURSE_POSTGRES_HOST: db
       CONCOURSE_POSTGRES_USER: atc
       CONCOURSE_POSTGRES_PASSWORD: postgres
-      CONCOURSE_EXTERNAL_URL: http://concourse.l.hirschfeld.tech
+      CONCOURSE_EXTERNAL_URL: http://concourse.l.joern19.de
       CONCOURSE_ADD_LOCAL_USER: admin:admin,guest:guest
       CONCOURSE_MAIN_TEAM_LOCAL_USER: admin
       CONCOURSE_CLUSTER_NAME: dev
@@ -89,10 +89,10 @@ services:
       - "--providers.docker.network=proxy"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.myapi.rule=Host(`kaboom.l.hirschfeld.tech`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.myapi.rule=Host(`kaboom.l.joern19.de`) && PathPrefix(`/api`)"
       - "traefik.http.routers.myapi.service=api@internal"
       - "traefik.http.routers.myapi.entrypoints=web,websecure"
-      - "traefik.http.routers.mydashboard.rule=Host(`kaboom.l.hirschfeld.tech`) && PathPrefix(`/`)"
+      - "traefik.http.routers.mydashboard.rule=Host(`kaboom.l.joern19.de`) && PathPrefix(`/`)"
       - "traefik.http.routers.mydashboard.service=dashboard@internal"
       - "traefik.http.routers.mydashboard.entrypoints=web,websecure"
     ports:
