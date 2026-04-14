@@ -1,4 +1,5 @@
 # Install
+- ansible-playbook playbook.yaml -i pi@kaboom.l.joern19.de,
 - Startup the docker-compose.yml with podman in the pi user (rootless).
 - ./render.sh
 - fly -t kaboom set-pipeline -v SSHKEY=$B64_ENCODED_CONCOURSE_SSH_KEY -p main -c output/concourse-pipeline/templates/main.yaml

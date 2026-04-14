@@ -1,0 +1,13 @@
+- name: Setup RPI
+  hosts: all
+  tasks:
+    - name: Install jq
+      ansible.builtin.package:
+        name: "jq"
+        state: latest
+    - name: Install deploy.sh
+      ansible.builtin.copy:
+        src: ./deploy.sh
+        dest: /home/pi/.local/bin/
+        mode: u=rwx,g=rwx,o=rx
+
