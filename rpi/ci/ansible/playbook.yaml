@@ -10,4 +10,20 @@
         src: ./deploy.sh
         dest: /home/pi/.local/bin/
         mode: u=rwx,g=rwx,o=rx
+    - name: Create folder for data for the thread bridge router
+      ansible.builtin.file:
+        path: /home/pi/otbr-data
+        state: directory
+    - name: Install accept_ra sysctl config
+      become: true
+      copy:
+        dest: /etc/sysctl.d/60-otbr.conf
+        content: |
+          net.ipv6.conf.eth0.accept_ra = 2
+          net.ipv6.conf.eth0.accept_ra_rt_info_max_plen = 64
+          net.ipv6.conf.all.forwarding = 1
+          net.ipv4.ip_forward = 1
+        owner: root
+        group: root
+        mode: '0644'
 
