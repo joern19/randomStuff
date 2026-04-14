@@ -9,8 +9,7 @@ jobs:
   plan:
 #  - get: repo
 #    trigger: true
-
   {{- range .Values.services }}
   - task: deploy_{{ .name }}
-    {{- include "pipelines.remoteTask" (printf "podman run -d --name %s --replace %s" .name .run) | nindent 4 }}
+    {{- include "pipelines.remoteTask" (printf "/home/pi/.local/bin/deploy.sh \\\"%s\\\" \\\"%s\\\"" .name .run) | nindent 4 }}
   {{- end }}
