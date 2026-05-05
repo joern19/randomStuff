@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
   RCSwitch s = RCSwitch();
-  s.enableTransmit(0);
+  s.enableTransmit(27);
 
   // If you want a memory save C/C++ program, write it in rust.
   int group = atoi(argv[1]);
