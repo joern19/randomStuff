@@ -8,9 +8,9 @@
    -v /run/udev:/run/udev:ro \
    --group-add keep-groups \
    -l traefik.enable=true \
-   -l traefik.http.routers.concourse.entrypoints=web,websecure \
-   -l traefik.http.services.concourse.loadbalancer.server.port=8080 \
-   '-l "traefik.http.routers.concourse.rule=Host(\"zigbee.l.joern19.de\")"' \
+   -l traefik.http.routers.zigbee2mqtt.entrypoints=web,websecure \
+   -l traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080 \
+   '-l "traefik.http.routers.zigbee2mqtt.rule=Host(\"zigbee.l.joern19.de\")"' \
    -e ZIGBEE2MQTT_CONFIG_mqtt_server=mqtt://kaboom.l.joern19.de:1883 \
    -e TZ=Europe/Amsterdam \
    ghcr.io/koenkk/zigbee2mqtt
