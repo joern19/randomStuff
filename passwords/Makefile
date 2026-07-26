@@ -3,7 +3,7 @@ FLAGS = -Wall -Wextra -std=c17 $(shell pkg-config --libs --cflags gpgme nss yaml
 
 TARGET = password-tool
 
-SRC = main.c passwords.c logins.c
+SRC = main.c passwords.c logins.c crypt.c
 OBJ = $(SRC:.c=.o)
 
 $(TARGET): $(OBJ)

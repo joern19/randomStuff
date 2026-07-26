@@ -26,7 +26,7 @@ void addLogin(Logins* logins, char* id, char* hostname, char* username, char* pa
 char* buildStringAndFree(Logins* logins) {
   cJSON_AddNumberToObject(logins->root, "version", 3);
 
-  char *json = cJSON_Print(logins->root);
+  char *json = cJSON_PrintUnformatted(logins->root);
   cJSON_Delete(logins->root);
   return json;
 }

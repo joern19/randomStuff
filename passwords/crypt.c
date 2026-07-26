@@ -64,3 +64,10 @@ SECItem encrypt(PK11SlotInfo* slot, SECItem plaintext) {
   }
   return encrypted;
 } 
+
+char* encryptEncode(PK11SlotInfo* slot, char* plaintext) {
+  SECItem encrypted = encrypt(slot, makeItem(plaintext));
+  char* result = encode((char*) encrypted.data, encrypted.len);
+  SECITEM_FreeItem(&encrypted, PR_FALSE);
+  return result;
+}
