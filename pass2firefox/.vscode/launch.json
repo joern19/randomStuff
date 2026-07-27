@@ -9,7 +9,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/password-tool",
-      "args": [],
+      "args": [ "/home/not-a-robot/.mozilla/firefox/brv5n30u.youmaybreakme" ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
       "environment": [],
