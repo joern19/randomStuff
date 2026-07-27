@@ -115,12 +115,15 @@ static int load_file(const char *path, PasswordEntry *entry) {
     return 0;
 }
 
-char* join_paths(char* absolute, char* relative) {
-  char *dir_path = malloc(strlen(absolute) + strlen(relative) + 2);
-  strcpy(dir_path, absolute);
-  dir_path[strlen(dir_path)] = '/';
-  dir_path[strlen(dir_path) + 1] = '\0';
-  strcat(dir_path, relative);
+char* join_paths(const char* absolute, const char* relative) {
+  size_t absolute_len = strlen(absolute);
+  size_t relative_len = strlen(relative);
+  char *dir_path = malloc(absolute_len + relative_len + 2);
+  memcpy(dir_path, absolute, absolute_len);
+  dir_path[absolute_len] = '/';
+  memcpy(dir_path + absolute_len+1, relative, relative_len);
+  dir_path[absolute_len + relative_len + 1] = '\0';
+  return dir_path;
 }
 
 static void scan_dir(const char *absolute, const char *relative, PasswordList *list) {
@@ -162,10 +165,8 @@ static void scan_dir(const char *absolute, const char *relative, PasswordList *l
       e->domain[len-1] = '\0';
     } else {
       char* beginning = strrchr(relative, '/')+1;
-      size_t len = strlen(beginning) - 3; // +1 (\0) -4 (.gpg)
-      e->domain = malloc(len);
-      memcpy(e->domain, beginning, len);
-      e->domain[len-1] = '\0';
+      e->domain = malloc(strlen(beginning));
+      strcpy(e->domain, beginning);
     }
     const char* url_prefix = "https://";
     size_t url_prefix_len = strlen(url_prefix);
