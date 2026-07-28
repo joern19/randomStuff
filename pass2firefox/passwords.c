@@ -106,7 +106,7 @@ static int load_file(const char *path, PasswordEntry *entry) {
     int passwordLength = (int)(strchr(content, '\n') - content);
     entry->password = malloc(passwordLength+1);
     memcpy(entry->password, content, passwordLength);
-    entry->password[passwordLength+1] = '\0';
+    entry->password[passwordLength] = '\0';
 
     parse_yaml_fields(content+passwordLength, entry);
 
