@@ -175,9 +175,10 @@ static void scan_dir(const char *absolute, const char *relative, PasswordList *l
     memcpy(e->url, url_prefix, url_prefix_len);
     memcpy(e->url+url_prefix_len, e->domain, domain_len + 1);
 
-    // TODO: Fail if this fails.
-    load_file(join_paths(dir_path, de->d_name), e);
-    list->count++;
+    // Just overwrite existing data if this fails.
+    if (load_file(join_paths(dir_path, de->d_name), e) == 0) {
+      list->count++;
+    }
   }
   closedir(d);
 }
