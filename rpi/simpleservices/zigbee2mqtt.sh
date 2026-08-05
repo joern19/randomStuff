@@ -11,7 +11,7 @@
    -l traefik.http.routers.zigbee2mqtt.entrypoints=web,websecure \
    -l traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080 \
    '-l "traefik.http.routers.zigbee2mqtt.rule=Host(\"zigbee.l.joern19.de\")"' \
-   -e ZIGBEE2MQTT_CONFIG_mqtt_server=mqtt://kaboom.l.joern19.de:1883 \
+   -e ZIGBEE2MQTT_CONFIG_mqtt_server=mqtt://mosquitto:1883 \ # Does not overwrite config stored in zigbee2mqtt-data
    -e TZ=Europe/Amsterdam \
    ghcr.io/koenkk/zigbee2mqtt
 
