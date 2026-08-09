@@ -7,6 +7,7 @@ use std::{
 const PR_TRUE: i32 = 1;
 const PR_FALSE: i32 = 0;
 
+use base64::{engine, Engine};
 use pass2firefox_rs::{
   _SECStatus_SECSuccess, get_error_c_wrapper, make_sec_item, NSS_Init, NSS_Shutdown,
   PK11SDR_EncryptWithMechanism, PK11SlotInfo, PK11SlotInfoStr, PK11_Authenticate, PK11_FreeSlot,
@@ -33,7 +34,7 @@ impl Nss {
     handle_status(status).map(|_| Nss {})
   }
 
-  pub fn setup_slot(&self) -> Result<Pk11Slot, CError> {
+  pub fn setup_slot<'a>(&'a self) -> Result<Pk11Slot<'a>, CError> {
     // SAFETY: Nss is initialized, result is checked for null.
     let raw_slot_ptr = unsafe { PK11_GetInternalKeySlot() };
     let slot = match NonNull::new(raw_slot_ptr) {
@@ -108,7 +109,7 @@ impl SecItemCOwned {
 }
 
 pub struct SecItemRustOwned {
-  data: Box<[u8]>,
+  _data: Box<[u8]>,
   item: SECItemStr,
 }
 
@@ -125,14 +126,14 @@ impl SecItemRustOwned {
     })?;
     let ptr = data.as_mut_ptr();
     let item = SecItemRustOwned {
-      data,
+      _data: data,
       item: unsafe { make_sec_item(ptr, len) },
     };
     Ok(item)
   }
 }
 
-fn encrypt(slot: &Pk11Slot, data: Box<[u8]>) -> Result<SecItemCOwned, CError> {
+pub fn encrypt(slot: &Pk11Slot, data: Box<[u8]>) -> Result<SecItemCOwned, CError> {
   let mut encrypted = SecItemCOwned::make_empty();
   let mut key_id = SecItemCOwned::make_empty();
   let mut data_item = SecItemRustOwned::make(data)?;
@@ -153,4 +154,12 @@ fn encrypt(slot: &Pk11Slot, data: Box<[u8]>) -> Result<SecItemCOwned, CError> {
     )
   };
   handle_status(status).map(|_| encrypted)
+}
+
+pub fn encrypt_encode(slot: &Pk11Slot, data: &str) -> Result<String, CError> {
+  let item = encrypt(slot, data.as_bytes().to_vec().into_boxed_slice())?;
+  let data =
+    unsafe { std::slice::from_raw_parts(item.item.data, item.item.len as usize).to_owned() };
+  let encoded = engine::general_purpose::STANDARD.encode(data);
+  Ok(encoded)
 }

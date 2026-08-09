@@ -10,13 +10,18 @@ struct PassFormat {
   url: Option<String>,
 }
 
-// TODO: This is wrong rn.
+// Simple enough: If it contains a dot, it's probably a domain.
 fn domain_from_path(relative_path: &Path) -> Option<&OsStr> {
-  let parent = relative_path.parent()?.file_name();
-  if parent == Some(OsStr::new("web")) {
-    return relative_path.file_stem();
+  if let Some(file_stem) = relative_path.file_stem() && file_stem.to_string_lossy().contains(".") {
+    return Some(file_stem);
   }
-  parent
+  for component in relative_path.parent()?.components().rev() {
+    let component_os_str = component.as_os_str();
+    if component_os_str.to_string_lossy().contains(".") {
+      return Some(component_os_str);
+    }
+  }
+  None
 }
 
 pub fn pass_file_to_entry(relative_path: &Path, content: String) -> Option<Entry> {
