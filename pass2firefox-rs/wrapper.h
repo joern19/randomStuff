@@ -1,3 +1,6 @@
+#ifndef WRAPPER_H
+#define WRAPPER_H
+
 #include <nss.h>
 #include <pk11pub.h>
 #include <pk11sdr.h>
@@ -10,11 +13,7 @@
 #include <gpgme.h>
 #include <gpg-error.h>
 
-char* get_error_c_wrapper() {
-  return PORT_ErrorToString(PORT_GetError());
-}
+const char* get_error_c_wrapper();
+SECItem make_sec_item(unsigned char* data, int len);
 
-SECItem make_sec_item(unsigned char* data, int len) {
-  SECItem item = { siBuffer, data: data, len: len };
-  return item;
-}
+#endif

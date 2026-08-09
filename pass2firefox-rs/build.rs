@@ -13,11 +13,14 @@ fn main() {
   println!("cargo:rustc-link-lib=plds4");
   println!("cargo:rustc-link-lib=plc4");
   println!("cargo:rustc-link-lib=nspr4");
-  // println!("cargo:rustc-link-lib=gpgme");
+  println!("cargo:rustc-link-lib=gpgme");
 
-  // The bindgen::Builder is the main entry point
-  // to bindgen, and lets you build up options for
-  // the resulting bindings.
+  cc::Build::new()
+    .file("wrapper.c")
+    .include("/usr/include/nss")
+    .include("/usr/include/nspr")
+    .compile("wrapper");
+
   let bindings = bindgen::Builder::default()
     // The input header we would like to generate
     // bindings for.

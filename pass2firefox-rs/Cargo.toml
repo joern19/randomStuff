@@ -10,7 +10,8 @@ serde_yaml = "0.9"
 walkdir = "2"
 
 [build-dependencies]
-bindgen = "0.71.0"
+bindgen = "0.72"
+cc = "1.2"
 
 [[bin]]
 name = "pass2firefox-rs"

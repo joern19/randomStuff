@@ -1,20 +1,16 @@
-// use crate::cerror::CError;
+use crate::cerror::CError;
 use std::{
-  // ffi::{c_void, CStr, CString},
-  path::Path,
-  process::Command,
-  // ptr,
+  ffi::{c_void, CStr, CString},
+  ptr,
 };
 
-/*
 use pass2firefox_rs::{
-  gpgme_ctx_t, gpgme_data_new, gpgme_data_new_from_file, gpgme_data_read, gpgme_data_release,
-  gpgme_data_seek, gpgme_data_t, gpgme_new, gpgme_op_decrypt,
+  gpgme_check_version, gpgme_ctx_t, gpgme_data_new, gpgme_data_new_from_file, gpgme_data_read,
+  gpgme_data_release, gpgme_data_seek, gpgme_data_t, gpgme_new, gpgme_op_decrypt,
   gpgme_protocol_t_GPGME_PROTOCOL_OpenPGP, gpgme_release, gpgme_set_protocol, gpgme_strerror,
   gpgme_strsource,
-};*/
+};
 
-/*
 fn handle_error(error_code: u32) -> Result<(), CError> {
   if error_code != 0 {
     let c_error_str = unsafe { CStr::from_ptr(gpgme_strerror(error_code)) };
@@ -59,6 +55,7 @@ pub struct Ctx {
 
 impl Ctx {
   pub fn make() -> Result<Ctx, CError> {
+    unsafe { gpgme_check_version(ptr::null_mut()) };
     let mut ctx: gpgme_ctx_t = ptr::null_mut();
     let error_code = unsafe { gpgme_new(&mut ctx) };
     handle_error(error_code)?;
@@ -107,9 +104,10 @@ impl Drop for Ctx {
       gpgme_release(self.ptr);
     }
   }
-}*/
+}
 
-pub fn decrypt(file: &Path) -> Result<String, String> {
+// Using gpgme directly takes roughly the same amount of time.
+/*pub fn decrypt(file: &Path) -> Result<String, String> {
   // Ugh, is there a stable gpgme wrapper?
   // I could just wrap it myself again..
   let output = Command::new("gpg")
@@ -126,4 +124,4 @@ pub fn decrypt(file: &Path) -> Result<String, String> {
     return Err(String::from_utf8_lossy(&output.stderr).to_string());
   }
   String::from_utf8(output.stdout).map_err(|err| err.to_string())
-}
+}*/
