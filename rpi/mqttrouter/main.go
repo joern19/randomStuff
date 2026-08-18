@@ -77,7 +77,7 @@ func lookupEnvOrFail(key string) string {
 
 func main() {
 	opts := mqtt.NewClientOptions()
-	opts.AddBroker("mqtt://kaboom.l.joern19.de:1883")
+	opts.AddBroker("mqtt://mosquitto:1883")
 	opts.SetClientID("go-router")
 	opts.SetKeepAlive(10 * time.Second)
 	opts.SetPingTimeout(1 * time.Second)
