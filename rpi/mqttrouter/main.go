@@ -79,6 +79,10 @@ func main() {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker("mqtt://kaboom.l.joern19.de:1883")
 	opts.SetClientID("go-router")
+	opts.SetKeepAlive(10 * time.Second)
+	opts.SetPingTimeout(1 * time.Second)
+	opts.SetAutoReconnect(true)
+	opts.SetMaxReconnectInterval(30 * time.Second)
 	client := mqtt.NewClient(opts)
 	client.AddRoute("#", func(_ mqtt.Client, msg mqtt.Message) {
 		log.Printf("Received message on topic %s: %s\n", msg.Topic(), msg.Payload())
