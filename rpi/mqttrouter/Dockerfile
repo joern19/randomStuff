@@ -1,5 +1,4 @@
-FROM docker.io/library/golang:1.26-alpine
+FROM docker.io/library/alpine:3.24.1
 
-COPY . .
-RUN go build
+COPY mqttrouter .
 CMD ["./mqttrouter"]

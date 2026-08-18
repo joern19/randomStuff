@@ -86,6 +86,9 @@ func main() {
 	opts.SetOnConnectHandler(func(_ mqtt.Client) {
 		log.Println("Connected to Broker")
 	})
+	opts.SetReconnectingHandler(func(c mqtt.Client, co *mqtt.ClientOptions) {
+		log.Println("Connected to Broker")
+	})
 	opts.SetConnectionLostHandler(func(_ mqtt.Client, err error) {
 		log.Printf("[WARNING] Connection to Broker lost: %s", err)
 	})

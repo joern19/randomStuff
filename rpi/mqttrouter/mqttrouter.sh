@@ -1,3 +1,3 @@
 #!/bin/sh
-../upload-build-deloy-generic.sh --secret mqttDiscordWebhook,type=env,target=DISCORD_WEBHOOK
-
+GOARCH=arm go build
+../deploy-image.sh --secret mqttDiscordWebhook,type=env,target=DISCORD_WEBHOOK
