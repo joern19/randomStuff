@@ -74,6 +74,15 @@ func lookupEnvOrFail(key string) string {
 	return strings.TrimSpace(value)
 }
 
+func subscribe(client mqtt.Client, appContext *AppContext, topic string, handler func(*AppContext, mqtt.Message)) {
+	log.Println("Subscribing to:", topic)
+	if token := client.Subscribe(topic, 0, func(c mqtt.Client, m mqtt.Message) {
+		handler(appContext, m)
+	}); token.Wait() && token.Error() != nil {
+		log.Fatal(token.Error())
+	}
+}
+
 func main() {
 	opts := mqtt.NewClientOptions()
 	opts.AddBroker("mqtt://mosquitto:1883")
@@ -83,11 +92,17 @@ func main() {
 	opts.SetAutoReconnect(true)
 	opts.SetMaxReconnectInterval(30 * time.Second)
 
-	opts.SetOnConnectHandler(func(_ mqtt.Client) {
-		log.Println("Connected to Broker")
-	})
-	opts.SetReconnectingHandler(func(c mqtt.Client, co *mqtt.ClientOptions) {
-		log.Println("Connected to Broker")
+	opts.SetOnConnectHandler(func(client mqtt.Client) {
+		appContext := &AppContext{
+			client,
+			DiscordWebhook{
+				lookupEnvOrFail("DISCORD_WEBHOOK"),
+			},
+		}
+
+		subscribe(client, appContext, "zigbee2mqtt/0xa4c1383901896965", handleDoorSensor)
+		subscribe(client, appContext, "discord/#", handleDiscord)
+		log.Println("OK")
 	})
 	opts.SetConnectionLostHandler(func(_ mqtt.Client, err error) {
 		log.Printf("[WARNING] Connection to Broker lost: %s", err)
@@ -100,25 +115,5 @@ func main() {
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		log.Fatal(token.Error())
 	}
-
-	appContext := &AppContext{
-		client,
-		DiscordWebhook{
-			lookupEnvOrFail("DISCORD_WEBHOOK"),
-		},
-	}
-
-	subscribe := func(topic string, handler func(*AppContext, mqtt.Message)) {
-		log.Println("Subscribing to:", topic)
-		if token := client.Subscribe(topic, 0, func(c mqtt.Client, m mqtt.Message) {
-			handler(appContext, m)
-		}); token.Wait() && token.Error() != nil {
-			log.Fatal(token.Error())
-		}
-	}
-
-	subscribe("zigbee2mqtt/0xa4c1383901896965", handleDoorSensor)
-	subscribe("discord/#", handleDiscord)
-	log.Println("OK")
 	select {} // block forever
 }
