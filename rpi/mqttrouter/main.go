@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -41,13 +40,13 @@ func handleDoorSensor(context *AppContext, msg mqtt.Message) {
 
 	if !payload.Contact {
 		if !isDark() {
-			fmt.Println("It is not Dark, not turning lamp on.")
+			log.Println("It is not Dark, not turning lamp on.")
 			return
 		}
 		payload := `{"id":"flur","src":"my-new-topic","method":"Switch.Set","params":{"id":0,"on":true,"toggle_after":1}}`
 		token := context.client.Publish("shellies/treppenhaus/rpc", 1, false, payload)
 		token.Wait()
-		fmt.Println("Turned lamp on!")
+		log.Println("Turned lamp on!")
 	}
 }
 
@@ -83,6 +82,14 @@ func main() {
 	opts.SetPingTimeout(1 * time.Second)
 	opts.SetAutoReconnect(true)
 	opts.SetMaxReconnectInterval(30 * time.Second)
+
+	opts.SetOnConnectHandler(func(_ mqtt.Client) {
+		log.Println("Connected to Broker")
+	})
+	opts.SetConnectionLostHandler(func(_ mqtt.Client, err error) {
+		log.Printf("[WARNING] Connection to Broker lost: %s", err)
+	})
+
 	client := mqtt.NewClient(opts)
 	client.AddRoute("#", func(_ mqtt.Client, msg mqtt.Message) {
 		log.Printf("Received message on topic %s: %s\n", msg.Topic(), msg.Payload())
